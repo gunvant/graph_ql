@@ -1,0 +1,62 @@
+  [1m[35m (2.3ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL PRIMARY KEY) /*application='GraphQl'*/[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" varchar NOT NULL PRIMARY KEY, "value" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL) /*application='GraphQl'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='GraphQl'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.2ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ('environment', 'development', '2026-06-21 04:45:16.041128', '2026-06-21 04:45:16.041132') RETURNING "key" /*application='GraphQl'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='GraphQl'*/[0m
+Migrating to CreateUsers (20260621044501)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (1.0ms)[0m  [1m[35mCREATE TABLE "users" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "email" varchar, "phone" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL) /*application='GraphQl'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20260621044501') RETURNING "version" /*application='GraphQl'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[36mcommit transaction[0m
+Migrating to CreateParticipations (20260621044503)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.8ms)[0m  [1m[35mCREATE TABLE "participations" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "user_id" integer NOT NULL, "enrollment_date" date, "status" varchar, "start_date" date, "end_date" date, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_e80f5ca3a2"
+FOREIGN KEY ("user_id")
+  REFERENCES "users" ("id")
+) /*application='GraphQl'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE INDEX "index_participations_on_user_id" ON "participations" ("user_id") /*application='GraphQl'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20260621044503') RETURNING "version" /*application='GraphQl'*/[0m
+  [1m[36mTRANSACTION (1.8ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='GraphQl'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='GraphQl'*/[0m
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = 'alice@example.com' LIMIT 1 /*application='GraphQl'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Create (0.1ms)[0m  [1m[32mINSERT INTO "users" ("name", "email", "phone", "created_at", "updated_at") VALUES ('Alice Johnson', 'alice@example.com', '111-1111', '2026-06-21 04:46:28.773124', '2026-06-21 04:46:28.773124') RETURNING "id" /*application='GraphQl'*/[0m
+  [1m[36mTRANSACTION (11.2ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = 'bob@example.com' LIMIT 1 /*application='GraphQl'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Create (2.2ms)[0m  [1m[32mINSERT INTO "users" ("name", "email", "phone", "created_at", "updated_at") VALUES ('Bob Smith', 'bob@example.com', '222-2222', '2026-06-21 04:46:28.796262', '2026-06-21 04:46:28.796262') RETURNING "id" /*application='GraphQl'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = 'alice.b@example.com' LIMIT 1 /*application='GraphQl'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Create (0.9ms)[0m  [1m[32mINSERT INTO "users" ("name", "email", "phone", "created_at", "updated_at") VALUES ('Alice Brown', 'alice.b@example.com', '333-3333', '2026-06-21 04:46:28.803551', '2026-06-21 04:46:28.803551') RETURNING "id" /*application='GraphQl'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" /*application='GraphQl'*/[0m
+  [1m[36mParticipation Load (0.3ms)[0m  [1m[34mSELECT "participations".* FROM "participations" WHERE "participations"."user_id" = 1 AND "participations"."start_date" = '2025-02-01' LIMIT 1 /*application='GraphQl'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mParticipation Create (1.1ms)[0m  [1m[32mINSERT INTO "participations" ("user_id", "enrollment_date", "status", "start_date", "end_date", "created_at", "updated_at") VALUES (1, '2025-01-10', 'active', '2025-02-01', '2025-12-31', '2026-06-21 04:46:28.834977', '2026-06-21 04:46:28.834977') RETURNING "id" /*application='GraphQl'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mParticipation Load (0.1ms)[0m  [1m[34mSELECT "participations".* FROM "participations" WHERE "participations"."user_id" = 1 AND "participations"."start_date" = '2026-02-01' LIMIT 1 /*application='GraphQl'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mParticipation Create (1.0ms)[0m  [1m[32mINSERT INTO "participations" ("user_id", "enrollment_date", "status", "start_date", "end_date", "created_at", "updated_at") VALUES (1, '2026-01-10', 'completed', '2026-02-01', '2026-06-30', '2026-06-21 04:46:28.839578', '2026-06-21 04:46:28.839578') RETURNING "id" /*application='GraphQl'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mParticipation Load (0.1ms)[0m  [1m[34mSELECT "participations".* FROM "participations" WHERE "participations"."user_id" = 2 AND "participations"."start_date" = '2024-12-01' LIMIT 1 /*application='GraphQl'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mParticipation Create (1.0ms)[0m  [1m[32mINSERT INTO "participations" ("user_id", "enrollment_date", "status", "start_date", "end_date", "created_at", "updated_at") VALUES (2, '2024-11-05', 'pending', '2024-12-01', NULL, '2026-06-21 04:46:28.843641', '2026-06-21 04:46:28.843641') RETURNING "id" /*application='GraphQl'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mParticipation Load (0.1ms)[0m  [1m[34mSELECT "participations".* FROM "participations" WHERE "participations"."user_id" = 3 AND "participations"."start_date" = '2026-03-15' LIMIT 1 /*application='GraphQl'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mParticipation Create (1.0ms)[0m  [1m[32mINSERT INTO "participations" ("user_id", "enrollment_date", "status", "start_date", "end_date", "created_at", "updated_at") VALUES (3, '2026-03-05', 'active', '2026-03-15', NULL, '2026-06-21 04:46:28.847954', '2026-06-21 04:46:28.847954') RETURNING "id" /*application='GraphQl'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mUser Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "users" /*application='GraphQl'*/[0m
+  [1m[36mParticipation Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "participations" /*application='GraphQl'*/[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[34mSELECT "participations"."id" AS t0_r0, "participations"."user_id" AS t0_r1, "participations"."enrollment_date" AS t0_r2, "participations"."status" AS t0_r3, "participations"."start_date" AS t0_r4, "participations"."end_date" AS t0_r5, "participations"."created_at" AS t0_r6, "participations"."updated_at" AS t0_r7, "users"."id" AS t1_r0, "users"."name" AS t1_r1, "users"."email" AS t1_r2, "users"."phone" AS t1_r3, "users"."created_at" AS t1_r4, "users"."updated_at" AS t1_r5 FROM "participations" INNER JOIN "users" ON "users"."id" = "participations"."user_id" WHERE (users.name ILIKE '%Alice%') AND (participations.start_date >= '2026-01-01') ORDER BY "participations"."start_date" ASC /*application='GraphQl',current_graphql_field='Query.usersByNameAndStartDate'*/[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[34mSELECT "participations"."id" AS t0_r0, "participations"."user_id" AS t0_r1, "participations"."enrollment_date" AS t0_r2, "participations"."status" AS t0_r3, "participations"."start_date" AS t0_r4, "participations"."end_date" AS t0_r5, "participations"."created_at" AS t0_r6, "participations"."updated_at" AS t0_r7, "users"."id" AS t1_r0, "users"."name" AS t1_r1, "users"."email" AS t1_r2, "users"."phone" AS t1_r3, "users"."created_at" AS t1_r4, "users"."updated_at" AS t1_r5 FROM "participations" INNER JOIN "users" ON "users"."id" = "participations"."user_id" WHERE (LOWER(users.name) LIKE '%alice%') AND (participations.start_date >= '2026-01-01') ORDER BY "participations"."start_date" ASC /*application='GraphQl',current_graphql_field='Query.usersByNameAndStartDate'*/[0m
+Started POST "/graphql" for 127.0.0.1 at 2026-06-21 05:02:05 +0000
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='GraphQl'*/[0m
+Processing by GraphqlController#execute as */*
+  Parameters: {"query" => "query UsersByNameAndStartDate($name: String, $startDate: ISO8601Date) { usersByNameAndStartDate(name: $name, startDate: $startDate) { id enrollmentDate status startDate user { name email } } }", "variables" => {"name" => "Alice", "startDate" => "2026-01-01"}, "graphql" => {"query" => "query UsersByNameAndStartDate($name: String, $startDate: ISO8601Date) { usersByNameAndStartDate(name: $name, startDate: $startDate) { id enrollmentDate status startDate user { name email } } }", "variables" => {"name" => "Alice", "startDate" => "2026-01-01"}}}
+  [1m[35mSQL (0.1ms)[0m  [1m[34mSELECT "participations"."id" AS t0_r0, "participations"."user_id" AS t0_r1, "participations"."enrollment_date" AS t0_r2, "participations"."status" AS t0_r3, "participations"."start_date" AS t0_r4, "participations"."end_date" AS t0_r5, "participations"."created_at" AS t0_r6, "participations"."updated_at" AS t0_r7, "users"."id" AS t1_r0, "users"."name" AS t1_r1, "users"."email" AS t1_r2, "users"."phone" AS t1_r3, "users"."created_at" AS t1_r4, "users"."updated_at" AS t1_r5 FROM "participations" INNER JOIN "users" ON "users"."id" = "participations"."user_id" WHERE (LOWER(users.name) LIKE '%alice%') AND (participations.start_date >= '2026-01-01') ORDER BY "participations"."start_date" ASC /*action='execute',application='GraphQl',controller='graphql',current_graphql_field='Query.usersByNameAndStartDate',current_graphql_operation='UsersByNameAndStartDate'*/[0m
+Completed 200 OK in 235ms (Views: 0.2ms | ActiveRecord: 2.2ms | Allocations: 92120)
+
+
